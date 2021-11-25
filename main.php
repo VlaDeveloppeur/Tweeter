@@ -47,7 +47,7 @@ TweeterView::addStyleSheet('html/style.css');
  */
  $router = new Router();
  $router->addRoute('maison','/home/','\tweeterapp\control\TweeterController','viewHome',TweeterAuthentification::ACCESS_LEVEL_NONE);
- $router->addRoute('following','/home/','\tweeterapp\control\TweeterController','viewFollowingTweet',TweeterAuthentification::ACCESS_LEVEL_NONE);
+ $router->addRoute('following','/following/','\tweeterapp\control\TweeterController','viewFollowingTweet',TweeterAuthentification::ACCESS_LEVEL_NONE);
  $router->setDefaultRoute('/home/');
  $router->addRoute('tweet', '/tweet/', '\tweeterapp\control\TweeterController', 'viewTweet',TweeterAuthentification::ACCESS_LEVEL_NONE);
  $router->addRoute('usertweets','/usertweets/','\tweeterapp\control\TweeterController','viewUserTweets',TweeterAuthentification::ACCESS_LEVEL_NONE);

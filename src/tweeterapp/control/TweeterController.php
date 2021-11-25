@@ -34,16 +34,29 @@ class TweeterController extends \mf\control\AbstractController
     }
 
     /**
-     * récuperer les tweet des abonnement
+     * Récuperer les tweet des abonnements
      * 
      * 
      */
     public function viewFollowingTweet()
     {
-        $tweets = Tweet::select()->get();
-        $vue = new TweeterView($tweets);
-        $vue->setAppTitle('Accueil');
-        $vue->render('renderHome');
+        $userUsername = $_SESSION['user_login'];
+        $id_user=User::select('id')->where('username','=',$userUsername)->first();
+        $follows = Follow::select()->where('follower', '=', $id_user['id'])->get();
+        $alltweet = array();
+        foreach ($follows as $follow) {
+            $userfollowee=User::select('id')->where('id','=',$follow['followee'])->first();
+            $tweets = $userfollowee->tweets()->get();
+            $alltweet[]=$tweets;
+        }
+        $viewTweets = new tweeterView($alltweet);
+        $viewTweets->setAppTitle("Following");
+        $viewTweets->render('renderFollowing');
+        
+        
+        
+        // echo $tweets;
+        
     }
 
 

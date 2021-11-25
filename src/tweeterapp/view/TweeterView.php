@@ -36,7 +36,7 @@ class TweeterView extends \mf\view\AbstractView
      */
     private function renderFooter()
     {
-        return "</section><footer class=\"theme-backcolor1\"> La super app créée en Licence Pro &copy;2018 </footer>";
+        return "</section><footer class=\"theme-backcolor1\"> La super app créée en Licence Pro &copy;2021 </footer>";
     }
 
     /* Méthode renderHome
@@ -61,7 +61,32 @@ class TweeterView extends \mf\view\AbstractView
         return $viewTweet;
     }
 
-    /* Méthode renderUeserTweets
+    /* Méthode renderFollowing
+     *
+     * Vue de la fonctionalité afficher tous les Tweets des gens que l'utilisateur suit
+     *  
+     */
+
+    private function renderFollowing()
+    {
+        $route = new Router();
+        $tweets = $this->data;
+        $viewTweet = "<article class=\"theme-backcolor2\">  <h2>Latest Tweets</h2>";
+        foreach ($tweets as $tweet) {
+            foreach ($tweet as $key) {
+                $author = $key->author()->first();
+                $link_tweet = $route->urlFor('tweet', [['id', $key->id]]);
+                $link_user = $route->urlFor('usertweets', [['id', $author->id]]);
+                $viewTweet .= "
+                <div class=\"tweet\"><a href=$link_tweet><div class=\"tweet-text\">".$key['text']."</div></a><div class=\"tweet-footer\"><span class=\"tweet-timestamp\">".$key['created_at']."</span><span class=\"tweet-author\"><a href=$link_user>".$author["fullname"]."</a></span></div></div>";
+            }
+        }
+
+        $viewTweet .= "</article>";
+       return $viewTweet;
+    }
+
+    /* Méthode renderUserTweets
      *
      * Vue de la fonctionalité afficher tout les Tweets d'un utilisateur donné. 
      * 
@@ -270,6 +295,9 @@ class TweeterView extends \mf\view\AbstractView
         switch ($selector) {
             case 'renderHome':
                 $content = $this->renderHome();
+                break;
+            case 'renderFollowing':
+                $content = $this->renderFollowing();
                 break;
             case 'rendreUserTweets':
                 $content = $this->renderUserTweets();
