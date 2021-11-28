@@ -219,10 +219,12 @@ class TweeterView extends \mf\view\AbstractView
         if ($authentification->logged_in) {         //le user est connecté et donc lui afficher la liste de ses followers
             $followersHtml = "<article class=\"theme-backcolor2\"><h2>Currently following</h2>";
             $followers = $this->data;
+            $nbfollow = count($followers);
+            $followersHtml .= "<article class=\"theme-backcolor2\"><h2>$nbfollow user following you</h2>";
             foreach ($followers as $follower) {
                 $followersHtml .= "
         <div class=\"tweet\" >
-        <div class=\"Tweet-author\" >$follower->fullname vous suit </div>
+        <div class=\"Tweet-author\" >$follower->fullname follow you </div>
         </div> ";
             }
         }

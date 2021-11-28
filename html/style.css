@@ -155,7 +155,7 @@ article h3 {
 }
 
 .tweet-footer hr {
-    with: 90%;
+    width: 90%;
     margin: 0 auto 0 auto;
     margin-bottom: .5rem;
 }
